@@ -1,0 +1,237 @@
+{
+  "project": "GenomicSpliceML",
+  "dataset": "UCI Molecular Biology (Splice-junction Gene Sequences)",
+  "source_type": "UCI_public",
+  "cv_claims_allowed": true,
+  "data_sha256": "ebbae10c85d3c285e2a2489a37e42bc2ee8d91d15005e391a9962fa3389a114f",
+  "seed": 42,
+  "quality_audit": {
+    "n_samples": 3190,
+    "length": 60,
+    "class_counts": {
+      "EI": 767,
+      "IE": 768,
+      "N": 1655
+    },
+    "unique_sequences": 3005,
+    "duplicate_sequences": 185,
+    "conflicting_labels_for_identical_sequence": 1,
+    "ambiguous_base_fraction": 0.000313
+  },
+  "split": {
+    "strategy": "two-stage StratifiedGroupKFold, grouped by exact DNA sequence",
+    "train": 1914,
+    "validation": 638,
+    "test": 638,
+    "note": "No patient, gene or genomic locus IDs provided. Exact-sequence grouping is NOT a biological independence guarantee."
+  },
+  "model_selected_on_validation_only": "positional_markov",
+  "validation_metrics": {
+    "prior_baseline": {
+      "n": 638,
+      "accuracy": 0.518809,
+      "macro_f1": 0.227726,
+      "balanced_accuracy": 0.333333,
+      "log_loss": 1.025983,
+      "multiclass_brier": 0.615069,
+      "ece_10bins": 0.0,
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          154
+        ],
+        [
+          0,
+          0,
+          153
+        ],
+        [
+          0,
+          0,
+          331
+        ]
+      ],
+      "classes": [
+        "EI",
+        "IE",
+        "N"
+      ],
+      "macro_auc_ovr": 0.5
+    },
+    "positional_markov": {
+      "n": 638,
+      "accuracy": 0.937304,
+      "macro_f1": 0.93388,
+      "balanced_accuracy": 0.931798,
+      "log_loss": 0.156783,
+      "multiclass_brier": 0.082138,
+      "ece_10bins": 0.022636,
+      "confusion_matrix": [
+        [
+          140,
+          4,
+          10
+        ],
+        [
+          0,
+          143,
+          10
+        ],
+        [
+          10,
+          6,
+          315
+        ]
+      ],
+      "classes": [
+        "EI",
+        "IE",
+        "N"
+      ],
+      "macro_auc_ovr": 0.991611
+    },
+    "position_logreg": {
+      "n": 638,
+      "accuracy": 0.937304,
+      "macro_f1": 0.928863,
+      "balanced_accuracy": 0.935171,
+      "log_loss": 0.182664,
+      "multiclass_brier": 0.095638,
+      "ece_10bins": 0.026068,
+      "confusion_matrix": [
+        [
+          150,
+          3,
+          1
+        ],
+        [
+          11,
+          136,
+          6
+        ],
+        [
+          9,
+          10,
+          312
+        ]
+      ],
+      "classes": [
+        "EI",
+        "IE",
+        "N"
+      ],
+      "macro_auc_ovr": 0.991238
+    },
+    "kmer_logreg": {
+      "n": 638,
+      "accuracy": 0.637931,
+      "macro_f1": 0.617803,
+      "balanced_accuracy": 0.620486,
+      "log_loss": 1.25446,
+      "multiclass_brier": 0.570881,
+      "ece_10bins": 0.224829,
+      "confusion_matrix": [
+        [
+          102,
+          17,
+          35
+        ],
+        [
+          12,
+          79,
+          62
+        ],
+        [
+          47,
+          58,
+          226
+        ]
+      ],
+      "classes": [
+        "EI",
+        "IE",
+        "N"
+      ],
+      "macro_auc_ovr": 0.794478
+    }
+  },
+  "final_test_metrics": {
+    "n": 638,
+    "accuracy": 0.943574,
+    "macro_f1": 0.940651,
+    "balanced_accuracy": 0.93584,
+    "log_loss": 0.163842,
+    "multiclass_brier": 0.085784,
+    "ece_10bins": 0.010731,
+    "confusion_matrix": [
+      [
+        139,
+        1,
+        14
+      ],
+      [
+        2,
+        144,
+        7
+      ],
+      [
+        8,
+        4,
+        319
+      ]
+    ],
+    "classes": [
+      "EI",
+      "IE",
+      "N"
+    ],
+    "macro_auc_ovr": 0.99108
+  },
+  "baseline_test_metrics": {
+    "n": 638,
+    "accuracy": 0.518809,
+    "macro_f1": 0.227726,
+    "balanced_accuracy": 0.333333,
+    "log_loss": 1.025983,
+    "multiclass_brier": 0.615069,
+    "ece_10bins": 0.0,
+    "confusion_matrix": [
+      [
+        0,
+        0,
+        154
+      ],
+      [
+        0,
+        0,
+        153
+      ],
+      [
+        0,
+        0,
+        331
+      ]
+    ],
+    "classes": [
+      "EI",
+      "IE",
+      "N"
+    ],
+    "macro_auc_ovr": 0.5
+  },
+  "macro_f1_bootstrap": {
+    "method": "ordinary_noncluster_bootstrap",
+    "resamples": 300,
+    "95pct_ci_macro_f1": [
+      0.919011,
+      0.959179
+    ]
+  },
+  "limitations": [
+    "Small, historic benchmark; not a clinical or diagnostic model.",
+    "No patient/gene IDs or external cohort; homologous sequences and gene leakage may remain.",
+    "One seeded train/val/test split; repeat seeds or external validation before strong claims.",
+    "Observed metrics must not be presented as drug-discovery, patient, or real-world clinical outcomes."
+  ]
+}
