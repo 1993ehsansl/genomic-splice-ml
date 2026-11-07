@@ -131,22 +131,26 @@ Or with GitHub CLI, after `gh auth login`: `gh repo create genomic-splice-ml --p
 
 Commit the **implementation** and README; the `.gitignore` intentionally prevents committing UCI raw data and trained model artifacts. If you later want to publish verified test results, add a non-sensitive *manually copied* `reports/metrics.json` and a carefully labelled evaluation summary with dataset source and random seed. Never upload private company/patient/clinical data or secrets.
 
-### Make the repository more persuasive to hiring teams
 
-- Include the test model comparison figure, dataset DOI, key evaluation limitations, and a short reproducibility command in your repository description.
-- Explain *why* macro-F1 is better than simple accuracy for three classes and why probability calibration matters for scientific decision support.
-- Demonstrate a failure case and what additional independent biological evaluation would be needed for real life-science use.
-- Provide your own code and written discussion; explicitly identify educational/course inspiration rather than portraying it as a company-validated drug-discovery model.
-
-## CV entry — **use only after running the public-data benchmark**
 
 **Genomic Splice-Site Prediction | Bioinformatics & Machine Learning**
 
-1. Built an end-to-end Python bioinformatics pipeline to classify 3,190 DNA sequences into donor, acceptor and non-splice categories using sequence features, probabilistic Markov models and ML.
-2. Benchmarked position-specific logistic regression, k-mer features and a PyTorch CNN (if trained), achieving **[YOUR VERIFIED TEST MACRO-F1]** with leakage-aware splits, error analysis and probability-calibration diagnostics.
-3. Developed a reproducible inference service using FastAPI, Docker and GitHub Actions, documenting test-set limitations, performance uncertainty and scientific reproducibility.
+###  Benchmark Results
 
-**Do not claim the project as completed or quote measured scores before actually running the experiment and verifying the outputs.**
+Evaluated on the public UCI Splice-Junction dataset containing 3,190 DNA sequences.
+
+- **Best model:** Position-dependent Markov classifier
+- **Test accuracy:** 94.4%
+- **Macro-F1:** 0.941 (95% bootstrap CI: 0.919–0.959)
+- **ROC-AUC:** 0.991
+- **Held-out test samples:** 638
+- **Baseline macro-F1:** 0.228
+
+Model selection used validation data, with exact duplicate sequences grouped across train, validation, and test splits.
+
+
+See [Detailed Results](reports/RESULTS.md) and [Evaluation Metrics](reports/metrics.json).
+
 
 ## License and credits
 
